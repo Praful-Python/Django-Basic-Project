@@ -1,0 +1,40 @@
+{% extends "mytestbasic/base.html" %}
+
+{% load static %}
+{% block body %}
+
+<body id="page-top">
+<div class="container">
+  <a class="btn btn-primary" href="/mytestbasic/form">Add New Patient Registration</a>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Date & Time</th>
+        <th scope="col">Patient_id   </th>
+        <th scope="col">patient Name</th>
+        <th scope="col">Patient health_care</th>
+        <th scope="col">Doctor</th>
+        <td scope="col">Fees</td>
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blog in patient %}
+      <tr>
+        <td>{{blog.red_date}}</td>
+        <td>CASE_NO{{blog.customer_id}}</td>
+        <td>{{blog.patient_name}}</td>
+        <td>{{blog.health_care}}</td>
+        <td>${{blog.Fee}}.00</td>
+        <td>{{blog.desc}}</td>
+        <td><a class="btn btn-primary" href="/mytestbasic/dashboard/{{blog.customer_id}}">edit</a></td>
+        <td><a class="btn btn-primary" href="/mytestbasic/delete/{{blog.customer_id}}">delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+{% endblock %}
