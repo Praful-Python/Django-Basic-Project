@@ -1,40 +1,115 @@
-{% extends "mytestbasic/base.html" %}
-
-{% load static %}
-{% block body %}
+{% extends "mytestbasic/base.html" %} {% load static %} {% block body %}
 
 <body id="page-top">
-<div class="container">
-  <a class="btn btn-primary" href="/mytestbasic/form">Add New Patient Registration</a>
-  <table class="table table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">Date & Time</th>
-        <th scope="col">Patient_id   </th>
-        <th scope="col">patient Name</th>
-        <th scope="col">Patient health_care</th>
-        <th scope="col">Doctor</th>
-        <td scope="col">Fees</td>
-        <th scope="col">EDIT</th>
-        <th scope="col">DELETE</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for blog in patient %}
-      <tr>
-        <td>{{blog.red_date}}</td>
-        <td>CASE_NO{{blog.customer_id}}</td>
-        <td>{{blog.patient_name}}</td>
-        <td>{{blog.health_care}}</td>
-        <td>${{blog.Fee}}.00</td>
-        <td>{{blog.desc}}</td>
-        <td><a class="btn btn-primary" href="/mytestbasic/dashboard/{{blog.customer_id}}">edit</a></td>
-        <td><a class="btn btn-primary" href="/mytestbasic/delete/{{blog.customer_id}}">delete</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+  <div class="container">
+    <a class="btn btn-primary" href="/mytestbasic/form"
+      >Add New Patient Registration</a
+    >
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Date & Time</th>
+          <th scope="col">Patient_id</th>
+          <th scope="col">patient Name</th>
+          <th scope="col">Patient health_care</th>
+          <th scope="col">Doctor</th>
+          <td scope="col">Fees</td>
+          <th scope="col">EDIT</th>
+          <th scope="col">DELETE</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for blog in patient %}
+        <tr>
+          <td>{{blog.red_date}}</td>
+          <td>CASE_NO{{blog.customer_id}}</td>
+          <td>{{blog.patient_name}}</td>
+          <td>{{blog.health_care}}</td>
+          <td>{{blog.desc}}</td>
+          <td>${{blog.Fee}}.00</td>
+          <td>
+            <a
+              class="btn btn-primary"
+              href="/mytestbasic/dashboard/{{blog.customer_id}}"
+              >edit</a
+            >
+          </td>
+          <td>
+            <a
+              id="/mytestbasic/delete/{{blog.customer_id}}"
+              href="/mytestbasic/delete/{{blog.customer_id}}"
+              class="btn btn-primary delete"
+              onclick="document.getElementById('id01').style.display='block'"
+              >delete</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="id01" class="modal">
+    <span
+      onclick="document.getElementById('id01').style.display='none'"
+      class="close"
+      title="Close Modal"
+      >×</span
+    >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-body">
+            <p>Are you sure want to delete ?</p>
+          </div>
+
+          <div class="modal-footer">
+            <button id="Cancel" type="button" class="cancelbtn">Cancel</button>
+            <button id="delete" type="button" class="deletebtn">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get the modal
+
+    var modal = document.getElementById("id01");
+
+    var deleteLinks = document.querySelectorAll(".delete");
+
+    for (var i = 0; i < deleteLinks.length; i++) {
+      deleteLinks[i].addEventListener("click", function (event) {
+        event.preventDefault();
+
+        elmid = this.getAttribute("href");
+        console.log(elmid);
+        sessionStorage.setItem("link", elmid);
+      });
+    }
+
+    document.getElementById("delete").onclick = function () {
+      elmId = sessionStorage.getItem("link");
+      console.log(elmid);
+      alert("Entru Deleted Succesfully.List Updated")
+      window.location.href = elmId;
+    };
+    sessionStorage.clear()
+
+    document.getElementById("Cancel").onclick = function () {
+      window.location.href = "/mytestbasic/dashboard";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+  {% endblock %}
 </body>
-</html>
-{% endblock %}
