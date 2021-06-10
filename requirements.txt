@@ -12,7 +12,7 @@ colorama==0.4.3
 crypto==1.4.1
 demjson==2.2.4
 distlib==0.3.0
-Django==3.0.7
+Django==3.1.12
 django-ckeditor==5.4.0
 django-cleanup==2.1.0
 django-crispy-forms==1.7.2
